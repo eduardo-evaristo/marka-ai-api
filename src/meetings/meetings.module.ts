@@ -7,5 +7,8 @@ import { MeetingsServices } from './meetings.service';
 @Module({
   controllers: [MeetingsController],
   providers: [MeetingsServices],
+  imports: [
+    MongooseModule.forFeature([{ name: Meeting.name, schema: MeetingSchema }]),
+  ],
 })
 export class MeetingsModule {}
