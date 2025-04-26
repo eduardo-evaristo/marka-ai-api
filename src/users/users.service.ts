@@ -7,8 +7,14 @@ import { Model } from 'mongoose';
 export class UsersServices {
   constructor(@InjectModel(User.name) private userModel: Model<User>) {}
 
-  create(createUserDTO) {
-    const newUser = new this.userModel(createUserDTO);
-    return newUser.save();
+  async create(createUserParams: { username: string; hashedPassword: string }) {
+    //1. Create user
+    const newUserObject = new this.userModel({
+      username: createUserParams.username,
+      password: createUserParams.hashedPassword,
+    });
+
+    //2. Return MongoDB Object
+    return (await newUserObject.save()).toObject();
   }
 }
