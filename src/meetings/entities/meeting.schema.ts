@@ -1,4 +1,8 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
+import {
+  AssociatedUser,
+  AssociatedUserSchema,
+} from 'src/users/entities/associated-user.schema';
 
 @Schema()
 export class Meeting {
@@ -14,9 +18,8 @@ export class Meeting {
   @Prop({ required: false })
   description: string;
 
-  //   @Prop()
-  // TODO: This should be a subdocument
-  //   associatedPeople: string[];
+  @Prop({ type: [AssociatedUserSchema], default: [] })
+  associatedPeople: AssociatedUser[];
 
   @Prop({ required: true })
   dateTime: Date;
